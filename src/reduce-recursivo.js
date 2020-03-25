@@ -1,24 +1,18 @@
+
+const isInitialValueUndefined = (initialValue) => initialValue === undefined;
+
 const reduce = (arr, func, initialValue) => {
     
-    let acc = initialValue;
-    let arrCopy = arr
-
-    if(initialValue === undefined){
-        acc = arr[0]
-        arrCopy = arr.slice(1)
-    }
-    
-    // for(let i = 0; i < arrCopy.length; i++){
-    //    acc = func(acc, arrCopy[i], i, arrCopy)
-    // }
-    // return acc
+    const acc = isInitialValueUndefined(initialValue) ? arr[0]: initialValue;
+    const arrCopy = isInitialValueUndefined(initialValue)  ? arr.slice(1) : arr;
 
     return (function reduceInternal (accInternal, arrCopyInteral, conter) {
         const [ head, ...tail ] = arrCopyInteral;
+        const accNext = () => func(accInternal, head, conter, arrCopy)
 
-        return    arrCopyInteral.length === 0 
+        return arrCopyInteral.length === 0 
         ? accInternal
-        : reduceInternal(func(accInternal, head, conter, arrCopy), tail, conter + 1 )
+        : reduceInternal(accNext(), tail, conter + 1)
     })(acc, arrCopy, 0)
 }
 
