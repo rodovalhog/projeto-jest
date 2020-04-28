@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import reduce from './reduce'
+import reduceRight from './reduce-right'
 
 
 it ('reduce should be a function', () => {
@@ -48,3 +49,11 @@ it('reduce([1,2,3], (acc, item, index, arr) => acc + arr[index] + item, 0) shoul
     const after = 12;
     expect(before).to.be.equal(after)
 })
+
+
+it("reduceRight(['me', 'lher', 'gui'], (acc, item) => acc + item, '') should return 'guilherme'", () => {
+    const before = reduceRight(['me', 'lher', 'gui'], (acc, item) => acc + item, '');
+    const after = 'guilherme';
+    expect(before).to.be.equal(after)
+})
+
